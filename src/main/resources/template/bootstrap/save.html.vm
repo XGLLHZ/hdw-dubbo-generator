@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:include="header">
+    <title>${comments}-编辑</title>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form class="form-horizontal" id="fm" data-validator-option="{timely:3, focusCleanup:true}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" id="id" name="id" th:value="${${pathName}.${pk.attrname}}"> 
+                    #foreach($column in $columns)
+                        #if($column.columnName != $pk.columnName)
+                            #if($column.columnName != 'status')
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">${column.comments}：</label>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" id="${column.attrname}" name="${column.attrname}" data-rule="required">
+                                            <option value="1" selected="selected" th:if="${${pathName}.${column.attrname}==1}">有效</option>
+                                            <option value="2" selected="selected" th:if="${${pathName}.${column.attrname}==2}">停用</option>
+                                            <option value="3" selected="selected" th:if="${${pathName}.${column.attrname}==3}">取消</option>
+                                            <option value="4" selected="selected" th:if="${${pathName}.${column.attrname}==4}">弃置（软删除</option>
+                                            <option value="1">有效</option>
+                                            <option value="2">停用</option>
+                                            <option value="3">取消</option>
+                                            <option value="4">弃置（软删除）</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                             #else
+                                 <div class="form-group">
+                                     <label class="col-sm-3 control-label">${column.comments}：</label>
+                                     <div class="col-sm-7">
+                                         <input id="${column.attrname}" name="${column.attrname}" type="text" class="form-control" th:value="${${pathName}.${column.attrname}}" data-rule="required">
+                                     </div>
+                                 </div>
+                                 <div class="hr-line-dashed"></div>
+                            #end
+                        #end
+                    #end
+                    <div class="form-group">
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">保存</button>
+                            <button class="btn btn-white" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:include="footer"></div>
+    <script type="text/javascript" th:inline="javascript">
+        $("#fm").validator({
+            valid: function (form) {
+                var me = this;
+                // 提交表单之前，hold住表单，防止重复提交
+                me.holdSubmit();
+                $.ajax({
+                    url: basePath + "${moduleName}/${pathName}/save",
+                    data: $(form).serialize(),
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.msg(data.msg, {
+                                icon: 1,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function () {
+                                window.parent.location.reload();
+                                parent.layer.close(index);
+                            });
+
+                        } else {
+                            parent.layer.msg(data.msg, {
+                                icon: 2,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            });
+                            me.holdSubmit(false);
+                        }
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+
+</html>

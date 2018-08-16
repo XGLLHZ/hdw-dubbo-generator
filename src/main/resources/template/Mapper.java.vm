@@ -1,0 +1,33 @@
+package ${package}.${moduleName}.mapper;
+
+import ${package}.${moduleName}.entity.${className};
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Mapper extends BaseMapper<${className}> {
+
+    /**
+    * 多表页面信息查询
+    * @param page
+    * @param par
+    * @return
+    */
+    List<Map<String, Object>> select${className}Page(Pagination page, Map<String, Object> par);
+
+    /**
+     * 多表信息查询
+     * @param par
+     * @return
+     */
+    List<Map<String, Object>> select${className}List(Map<String, Object> par);
+	
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:include="header">
+    <title>${comments}管理-列表</title>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>${comments}管理</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row row-lg">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-lg-2 col-sm-2">
+                                        <input type="text" class="form-control" id="key" name="key" placeholder="参数名" />
+                                    </div>
+                                    <div class="col-lg-3 col-sm-3">
+                                        <button type="submit" class="btn btn-sm btn-primary" onclick="${className}.search()">
+                                            <i class="fa fa-search">搜索</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="btn-group" id="${pathName}TableToolbar">
+                                    <button shiro:hasPermission="${moduleName}/${pathName}/save" class="btn btn-sm btn-primary" type="submit" onclick="${className}.openAdd()">
+                                        <i class="fa fa-pencil"></i>添加
+                                    </button>
+                                    <button shiro:hasPermission="${moduleName}/${pathName}/save" class="btn btn-sm btn-info" type="submit" onclick="${className}.openChange()">
+                                        <i class="fa fa-paste"></i>修改
+                                    </button>
+                                    <button shiro:hasPermission="${moduleName}/${pathName}/delete" class="btn btn-sm btn-danger" type="submit" onclick="${className}.del()">
+                                        <i class="fa fa-cut"></i>删除
+                                    </button>
+                                </div>
+                                <table id="${pathName}Table" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:include="footer"></div>
+    <script type="text/javascript" th:inline="javascript">
+        /**
+         * ${comments}管理的单例
+         */
+        var ${className} = {
+            id: "${pathName}Table",	//表格id
+            seItem: null,		//选中的条目
+            table: null,
+            layerIndex: -1
+        };
+
+        /**
+         * 初始化表格的列
+         */
+        ${className}.initColumn = function () {
+            var columns = [
+                { field: 'selectItem', radio: true },
+            #foreach($column in $columns)
+                #if($column.attrname==$pk.attrname)
+                    {title: '${column.comments}',field: '${column.attrname}',align: 'center',valign: 'middle',sortable: true,visible: false },
+                #elseif($column.attrname=='status')
+                    {
+                        title: '${column.comments}', field: '${column.attrname}', align: 'center', valign: 'middle', sortable: true, formatter: function (value, row, index) {
+                            switch (value) {
+                                case 1:
+                                    return '有效'
+                                case 2:
+                                    return '停用'
+                                case 3:
+                                    return '取消'
+                                case 4:
+                                    return '弃置（软删除）'
+                            }
+                        }
+                    },
+                 #else
+                    {title: '${column.comments}',field: '${column.attrname}',align: 'center',valign: 'middle',sortable: true},
+                #end
+
+            #end
+        ]
+            return columns;
+        };
+
+
+        /**
+         * 检查是否选中
+         */
+        ${className}.check = function () {
+            var selected = $('#' + this.id).bootstrapTable('getSelections');
+            if (selected.length == 0) {
+                zx.info("请先选中表格中的某一记录！");
+                return false;
+            } else {
+                ${className}.seItem = selected[0];
+                return true;
+            }
+        };
+
+        /**
+         * 点击添加
+         */
+        ${className}.openAdd = function () {
+            var index = layer.open({
+                type: 2,
+                title: '添加${comments}',
+                area: ['850px', '600px'], //宽高
+                fix: false, //不固定
+                maxmin: true,
+                content: basePath + '${moduleName}/${pathName}/savePage'
+            });
+            this.layerIndex = index;
+        };
+
+        /**
+         * 点击修改
+         */
+        ${className}.openChange = function () {
+            if (this.check()) {
+                var index = layer.open({
+                    type: 2,
+                    title: '修改${comments}',
+                    area: ['850px', '600px'], //宽高
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: basePath + '${moduleName}/${pathName}/savePage?${pk.attrname}=' + this.seItem.${pk.attrname}
+            });
+            this.layerIndex = index;
+          }
+        };
+
+        /**
+         * 删除
+         */
+        ${className}.del = function () {
+            if (this.check()) {
+                var operation = function () {
+                    var ajax = new $ax(basePath + "${moduleName}/${pathName}/delete", function (data) {
+                        if (data.success) {
+                            zx.success("删除成功!");
+                        } else {
+                            zx.error("删除失败!" + data.msg + "!");
+                        }
+                        ${className}.table.refresh();
+                    }, function (data) {
+                        zx.error("删除失败!" + data.responseJSON.message + "!");
+                    });
+                    ajax.set("${pk.attrname}", ${className}.seItem.${pk.attrname});
+                    ajax.start();
+                };
+
+                zx.confirm("是否刪除该菜单?", operation);
+            }
+        };
+
+        /**
+         * 重置
+         */
+        ${className}.resetSearch = function () {
+            $("#sel_menu1").val("");
+            $("#sel_menu2").val("");
+            $("#sel_menu3").val("");
+            ${className}.search();
+        }
+        
+        /**
+         * 搜索
+         */
+        ${className}.search = function () {
+            var queryData = {};
+            queryData['key'] = $("#key").val();
+            ${className}.table.refresh({ query: queryData });
+        }
+
+        $(function () {
+            var defaultColunms = ${className}.initColumn();
+            var table = new BSTable('${pathName}Table', basePath + "${moduleName}/${pathName}/dataGrid", defaultColunms);
+            table.setPaginationType("server");
+            table.init();
+            ${className}.table = table;
+        });
+    </script>
+</body>
+
+</html>

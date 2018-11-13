@@ -1,4 +1,4 @@
-package ${package}.${moduleName}.controller;
+﻿package ${package}.${moduleName}.controller;
 
 import java.util.*;
 
@@ -31,10 +31,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("${moduleName}/${pathName}")
 public class ${className}Controller extends BaseController {
-    @Reference(application = "${dubbo.application.id}", group = "RiskPlatform")
+    @Reference
     private I${className}Service ${classname}Service;
 
-    @Reference(application = "${dubbo.application.id}", group = "RiskPlatform")
+    @Reference
     private ISysEnterpriseService sysEnterpriseService;
 
     /**

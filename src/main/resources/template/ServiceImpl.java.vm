@@ -19,12 +19,7 @@ import java.util.Map;
  * @author ${author}
  * @date ${datetime}
  */
-@Service(
-		application = "${dubbo.application.id}",
-		protocol = "${dubbo.protocol.id}",
-		registry = "${dubbo.registry.id}",
-        group = "RiskPlatform"
-)
+@Service
 public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements I${className}Service {
 
     @Autowired

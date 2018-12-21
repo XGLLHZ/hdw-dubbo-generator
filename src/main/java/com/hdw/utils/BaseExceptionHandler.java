@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2016年10月27日 下午10:16:19
+ * @date 2018/12/21 15:14
  */
 @Component
 public class BaseExceptionHandler implements HandlerExceptionResolver {
@@ -25,7 +25,7 @@ public class BaseExceptionHandler implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
-		Result r = new Result();
+		ResultMap r = new ResultMap();
 		try {
 			response.setContentType("application/json;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
@@ -34,9 +34,9 @@ public class BaseExceptionHandler implements HandlerExceptionResolver {
 				r.put("code", ((BaseException) ex).getCode());
 				r.put("msg", ((BaseException) ex).getMessage());
 			}else if(ex instanceof DuplicateKeyException){
-				r = Result.error("数据库中已存在该记录");
+				r = ResultMap.error("数据库中已存在该记录");
 			}else{
-				r = Result.error();
+				r = ResultMap.error();
 			}
 			
 			//记录异常日志

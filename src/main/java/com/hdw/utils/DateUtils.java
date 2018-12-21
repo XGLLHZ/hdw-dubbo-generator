@@ -8,7 +8,7 @@ import java.util.Date;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2018年06月20日 下午12:53:33
+ * @date 2018/12/21 14:17
  */
 public class DateUtils {
 	/** 时间格式(yyyy-MM-dd) */

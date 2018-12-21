@@ -1,8 +1,10 @@
 package ${package}.${moduleName}.mapper;
 
 import ${package}.${moduleName}.entity.${className};
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -18,16 +20,16 @@ public interface ${className}Mapper extends BaseMapper<${className}> {
     /**
     * 多表页面信息查询分页
     * @param page
-    * @param par
+    * @param params
     * @return
     */
-    List<Map<String, Object>> select${className}Page(Pagination page, Map<String, Object> par);
+    IPage<Map<String, Object>> select${className}Page(Pagination page, @Param("params") Map<String, Object> params);
 
     /**
      * 多表信息查询
-     * @param par
+     * @param params
      * @return
      */
-    List<Map<String, Object>> select${className}List(Map<String, Object> par);
+    List<Map<String, Object>> select${className}List(Map<String, Object> params);
 	
 }

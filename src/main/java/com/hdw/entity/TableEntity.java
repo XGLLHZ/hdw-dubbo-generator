@@ -7,7 +7,7 @@ import java.util.List;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2016年12月20日 上午12:02:55
+ * @date 2018/12/21 14:17
  */
 public class TableEntity {
 	//表的名称

@@ -1,19 +1,24 @@
 package ${package}.${moduleName}.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import org.hibernate.validator.constraints.Length;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.hdw.common.util.JacksonUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import com.hdw.common.util.JacksonUtils;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
 import java.io.Serializable;
 import java.util.Date;
-import ${mainPath}.common.util.JacksonUtils;
+import com.hdw.common.util.JacksonUtils;
 
 /**
  * ${comments}

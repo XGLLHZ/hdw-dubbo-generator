@@ -10,7 +10,7 @@
 #end
     </resultMap>
 
-    <!-- 多表页面信息查询 -->
+    <!-- 多表页面信息查询分页 -->
     <select id="select${className}Page" parameterType="map" resultType="map">
 
     </select>

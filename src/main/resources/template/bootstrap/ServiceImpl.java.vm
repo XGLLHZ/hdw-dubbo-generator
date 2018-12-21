@@ -1,15 +1,13 @@
 package ${package}.${moduleName}.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import ${mainPath}.common.result.PageInfo;
-
-import ${package}.${moduleName}.mapper.${className}Mapper;
 import ${package}.${moduleName}.entity.${className};
 import ${package}.${moduleName}.service.I${className}Service;
-
 import java.util.List;
 import java.util.Map;
 
@@ -19,30 +17,20 @@ import java.util.Map;
  * @author ${author}
  * @date ${datetime}
  */
-@Service(
-		application = "${dubbo.application.id}",
-		protocol = "${dubbo.protocol.id}",
-		registry = "${dubbo.registry.id}",
-        group = "ZXPlatform"
-)
+@Service
 public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements I${className}Service {
-
-    @Autowired
-    private ${className}Mapper ${classname}Mapper;
 
     @Override
     public PageInfo selectDataGrid(PageInfo pageInfo){
         Page<Map<String, Object>> page = pageInfo.getPage();
-        List<Map<String, Object>> list = ${classname}Mapper.select${className}Page(page, pageInfo.getCondition());
-        pageInfo.setRows(list);
-        pageInfo.setTotal(page.getTotal());
-        return pageInfo;
+        IPage<Map<String, Object>> iPage = this.baseMapper.select${className}Page(page, pageInfo.getCondition());
+        return new PageUtils<Map<String, Object>>(iPage);
     }
 
     @Override
     public List<Map<String, Object>> select${className}List(Map<String, Object> par){
 
-        return ${classname}Mapper.select${className}List(par);
+        return this.baseMapper.select${className}List(par);
     }
 
 }

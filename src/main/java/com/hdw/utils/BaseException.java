@@ -5,7 +5,7 @@ package com.hdw.utils;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2016年10月27日 下午10:11:27
+ * @date 2018/12/21 15:14
  */
 public class BaseException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

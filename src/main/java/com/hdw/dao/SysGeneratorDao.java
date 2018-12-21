@@ -8,7 +8,7 @@ import java.util.Map;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2018年06月20日 下午3:32:04
+ * @date 2018/12/21 14:17
  */
 public interface SysGeneratorDao {
 	

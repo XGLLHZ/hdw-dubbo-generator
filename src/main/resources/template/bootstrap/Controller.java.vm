@@ -33,7 +33,7 @@ import javax.validation.Valid;
 @RequestMapping("${moduleName}/${pathName}")
 public class ${className}Controller extends BaseController {
 
-    @Reference(application = "${dubbo.application.id}", group = "ZXPlatform")
+    @Reference
     private I${className}Service ${classname}Service;
     
     
@@ -71,7 +71,7 @@ public class ${className}Controller extends BaseController {
     @GetMapping("/info/{${pk.attrname}}")
     @ResponseBody
     public Object info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-       ${className} ${classname} = ${classname}Service.selectById(${pk.attrname});
+       ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
        return renderSuccess(${classname} );
     }
 
@@ -83,7 +83,7 @@ public class ${className}Controller extends BaseController {
     public String savePage(Model model, ${pk.attrType} ${pk.attrname}) {
         ${className} ${classname} =null;
         if(null!= ${pk.attrname}){
-         ${classname} = ${classname}Service.selectById(${pk.attrname});
+         ${classname} = ${classname}Service.getById(${pk.attrname});
         }else{
          ${classname} = new ${className}();
         }
@@ -108,7 +108,7 @@ public class ${className}Controller extends BaseController {
                ${classname}Service.updateById(${classname});
                return renderSuccess("修改成功");
             }else{
-                ${classname}Service.insert(${classname});
+                ${classname}Service.save(${classname});
                 return renderSuccess("添加成功");
             }
         } catch (Exception e) {
@@ -127,7 +127,7 @@ public class ${className}Controller extends BaseController {
     @RequiresPermissions("${moduleName}/${pathName}/delete")
     public Object delete(${pk.attrType}[] ${pk.attrname}s) {
         try {
-            ${classname}Service.deleteBatchIds(Arrays.asList(${pk.attrname}s));
+            ${classname}Service.removeBatchIds(Arrays.asList(${pk.attrname}s));
             return renderSuccess("删除成功！");
         } catch (Exception e) {
             logger.error(e.getMessage());

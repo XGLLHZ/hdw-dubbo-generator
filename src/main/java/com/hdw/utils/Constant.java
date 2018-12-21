@@ -5,7 +5,7 @@ package com.hdw.utils;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2018年06月20日 下午1:23:52
+ * @date 2018/12/21 14:17
  */
 public class Constant {
 

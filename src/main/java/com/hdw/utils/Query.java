@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2017-03-14 23:15
+ * @date 2018/12/21 14:17
  */
 public class Query extends LinkedHashMap<String, Object> {
 	private static final long serialVersionUID = 1L;

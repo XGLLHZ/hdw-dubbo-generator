@@ -3,16 +3,17 @@ server:
     tomcat:
         max-threads: 10
         min-spare-threads: 10
-    port: 9090
+        uri-encoding: utf-8
+    port: 8080
 
 # mysql
 spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/hdw_dubbo?useUnicode=true&characterEncoding=UTF-8
-        username: root
-        password: 123456
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://172.16.5.80:3308/tailing_dev?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false&serverTimezone=GMT%2B8
+        username: hdw
+        password: Hdw@2017
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss

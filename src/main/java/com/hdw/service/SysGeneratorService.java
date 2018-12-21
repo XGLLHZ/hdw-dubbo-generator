@@ -1,7 +1,7 @@
 package com.hdw.service;
 
 import com.hdw.dao.SysGeneratorDao;
-import com.hdw.utils.GenUtils;
+import com.hdw.utils.GeneratorUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.zip.ZipOutputStream;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2018年06月20日 下午3:33:38
+ * @date 2018/12/21 14:17
  */
 @Service
 public class SysGeneratorService {
@@ -49,7 +49,7 @@ public class SysGeneratorService {
 			//查询列信息
 			List<Map<String, String>> columns = queryColumns(tableName);
 			//生成代码
-			GenUtils.generatorCode(table, columns, zip);
+			GeneratorUtils.generatorCode(table, columns, zip);
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();

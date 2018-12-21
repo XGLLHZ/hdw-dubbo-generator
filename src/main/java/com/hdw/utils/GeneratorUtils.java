@@ -25,39 +25,63 @@ import java.util.zip.ZipOutputStream;
  *
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2018年06月20日 下午11:40:24
+ * @date 2018/12/21 14:17
  */
-public class GenUtils {
+public class GeneratorUtils {
 
     public static List<String> getTemplates(){
         List<String> templates = new ArrayList<String>();
-        //vue
-//        templates.add("template/Entity.java.vm");
-//        templates.add("template/Mapper.java.vm");
-//        templates.add("template/Mapper.xml.vm");
-//        templates.add("template/Service.java.vm");
-//        templates.add("template/ServiceImpl.java.vm");
-//        templates.add("template/Controller.java.vm.vm");
+
+        // mybatisPlus2Dubbo
+//        templates.add("template/mybatisPlus2Dubbo/Entity.java.vm");
+//        templates.add("template/mybatisPlus2Dubbo/Mapper.java.vm");
+//        templates.add("template/mybatisPlus2Dubbo/Mapper.xml.vm");
+//        templates.add("template/mybatisPlus2Dubbo/Service.java.vm");
+//        templates.add("template/mybatisPlus2Dubbo/ServiceImpl.java.vm");
+//        templates.add("template/mybatisPlus2Dubbo/Controller.java.vm");
 //
-//        templates.add("template/menu.sql.vm");
-//        templates.add("template/index.vue.vm");
-//        templates.add("template/add-or-update.vue.vm");
+//        templates.add("template/mybatisPlus2Dubbo/menu.sql.vm");
+//        templates.add("template/mybatisPlus2Dubbo/index.vue.vm");
+//        templates.add("template/mybatisPlus2Dubbo/add-or-update.vue.vm");
 
-//        templates.add("template/adminlte/list.html.vm");
-//        templates.add("template/adminlte/list.js.vm");
-        
-        
+        // mybatisPlus3Dubbo
+        templates.add("template/mybatisPlus3Dubbo/Entity.java.vm");
+        templates.add("template/mybatisPlus3Dubbo/Mapper.java.vm");
+        templates.add("template/mybatisPlus3Dubbo/Mapper.xml.vm");
+        templates.add("template/mybatisPlus3Dubbo/Service.java.vm");
+        templates.add("template/mybatisPlus3Dubbo/ServiceImpl.java.vm");
+        templates.add("template/mybatisPlus3Dubbo/Controller.java.vm");
+
+        templates.add("template/mybatisPlus3Dubbo/menu.sql.vm");
+        templates.add("template/mybatisPlus3Dubbo/index.vue.vm");
+        templates.add("template/mybatisPlus3Dubbo/add-or-update.vue.vm");
+
+        // mybatisPlus3
+//        templates.add("template/mybatisPlus3/Entity.java.vm");
+//        templates.add("template/mybatisPlus3/Mapper.java.vm");
+//        templates.add("template/mybatisPlus3/Mapper.xml.vm");
+//        templates.add("template/mybatisPlus3/Service.java.vm");
+//        templates.add("template/mybatisPlus3/ServiceImpl.java.vm");
+//        templates.add("template/mybatisPlus3/Controller.java.vm");
+//
+//        templates.add("template/mybatisPlus3/menu.sql.vm");
+//        templates.add("template/mybatisPlus3/index.vue.vm");
+//        templates.add("template/mybatisPlus3/add-or-update.vue.vm");
+
           //bootstrap
-        templates.add("template/bootstrap/Entity.java.vm");
-        templates.add("template/bootstrap/Mapper.java.vm");
-        templates.add("template/bootstrap/Mapper.xml.vm");
-        templates.add("template/bootstrap/Service.java.vm");
-        templates.add("template/bootstrap/ServiceImpl.java.vm");
-        templates.add("template/bootstrap/Controller.java.vm");
-        templates.add("template/menu.sql.vm");
+//        templates.add("template/bootstrap/Entity.java.vm");
+//        templates.add("template/bootstrap/Mapper.java.vm");
+//        templates.add("template/bootstrap/Mapper.xml.vm");
+//        templates.add("template/bootstrap/Service.java.vm");
+//        templates.add("template/bootstrap/ServiceImpl.java.vm");
+//        templates.add("template/bootstrap/Controller.java.vm");
+//        templates.add("template/menu.sql.vm");
+//
+//        templates.add("template/bootstrap/list.html.vm");
+//        templates.add("template/bootstrap/save.html.vm");
 
-        templates.add("template/bootstrap/list.html.vm");
-        templates.add("template/bootstrap/save.html.vm");
+//         templates.add("template/adminlte/list.html.vm");
+//         templates.add("template/adminlte/list.js.vm");
 
       
 
@@ -226,17 +250,17 @@ public class GenUtils {
             return className.toLowerCase() + "_menu.sql";
         }
 
-//        //vue
-//        if (template.contains("index.vue.vm" )) {
-//            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
-//                    File.separator + moduleName + File.separator + className.substring(0,1).toLowerCase() +className.substring(1) + ".vue";
-//        }
-//
-//        //vue
-//        if (template.contains("add-or-update.vue.vm" )) {
-//            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
-//                    File.separator + moduleName + File.separator + className.substring(0,1).toLowerCase() +className.substring(1) + "-add-or-update.vue";
-//        }
+        //vue
+        if (template.contains("index.vue.vm" )) {
+            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
+                    File.separator + moduleName + File.separator + className.substring(0,1).toLowerCase() +className.substring(1) + ".vue";
+        }
+
+        //vue
+        if (template.contains("add-or-update.vue.vm" )) {
+            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
+                    File.separator + moduleName + File.separator + className.substring(0,1).toLowerCase() +className.substring(1) + "-add-or-update.vue";
+        }
 //
 //        if (template.contains("list.html.vm" )) {
 //            return "main" + File.separator + "resources" + File.separator + "adminlte" + File.separator
@@ -249,15 +273,15 @@ public class GenUtils {
 //        }
         
           //bootstrap
-        if (template.contains("list.html.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
-              + moduleName + File.separator + className.toLowerCase() + ".html";
-        }
-
-        if (template.contains("save.html.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
-              + moduleName + File.separator + className.toLowerCase() + "Save.html";
-        }
+//        if (template.contains("list.html.vm" )) {
+//            return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
+//              + moduleName + File.separator + className.toLowerCase() + ".html";
+//        }
+//
+//        if (template.contains("save.html.vm" )) {
+//            return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
+//              + moduleName + File.separator + className.toLowerCase() + "Save.html";
+//        }
 
         return null;
     }

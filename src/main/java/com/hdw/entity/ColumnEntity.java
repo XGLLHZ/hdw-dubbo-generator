@@ -5,7 +5,7 @@ package com.hdw.entity;
  * 
  * @author TuMinglong
  * @email tuminglong@126.com
- * @date 2016年12月20日 上午12:01:45
+ * @date 2018/12/21 14:17
  */
 public class ColumnEntity {
 	//列名

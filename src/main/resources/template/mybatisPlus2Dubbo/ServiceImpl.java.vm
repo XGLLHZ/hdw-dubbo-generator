@@ -1,0 +1,42 @@
+package ${package}.${moduleName}.service.impl;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import ${mainPath}.common.result.PageUtils;
+
+import ${package}.${moduleName}.mapper.${className}Mapper;
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.service.I${className}Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements I${className}Service {
+
+    @Autowired
+    private ${className}Mapper ${classname}Mapper;
+
+    @Override
+    public PageUtils selectDataGrid(Map<String, Object> params){
+        Page<Map<String, Object>> page = new PageUtils<Map<String, Object>>(params).getPage();
+        List<Map<String, Object>> list = ${classname}Mapper.select${className}Page(page, params);
+        page.setRecords(list);
+        return new PageUtils<Map<String, Object>>(page);
+    }
+
+    @Override
+    public List<Map<String, Object>> select${className}List(Map<String, Object> par){
+
+        return ${classname}Mapper.select${className}List(par);
+    }
+
+}

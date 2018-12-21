@@ -1,0 +1,39 @@
+package ${package}.${moduleName}.service.impl;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.alibaba.dubbo.config.annotation.Reference;
+import ${mainPath}.common.result.PageUtils;
+
+import ${package}.${moduleName}.mapper.${className}Mapper;
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.service.I${className}Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements I${className}Service {
+
+    @Override
+    public PageUtils selectDataGrid(Map<String, Object> params){
+        Page<Map<String, Object>> page = new PageUtils<Map<String, Object>>(params).getPage();
+        IPage<Map<String, Object>> iPage = this.baseMapper.select${className}Page(page, params);
+        return new PageUtils<Map<String, Object>>(iPage);
+    }
+
+    @Override
+    public List<Map<String, Object>> select${className}List(Map<String, Object> par){
+
+        return this.baseMapper.select${className}List(par);
+    }
+
+}

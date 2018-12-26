@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import ${mainPath}.common.base.BaseController;
 import ${mainPath}.common.result.PageUtils;
 import ${mainPath}.common.util.UUIDGenerator;
-import ${mainPath}.sys.shiro.ShiroKit;
+import ${mainPath}.upms.shiro.ShiroKit;
 import ${mainPath}.enterprise.service.IEnterpriseService;
 import ${mainPath}.common.result.ResultMap;
 
@@ -35,7 +35,7 @@ public class ${className}Controller extends BaseController {
     private I${className}Service ${classname}Service;
 
     @Reference
-    private ISysEnterpriseService sysEnterpriseService;
+    private IEnterpriseService sysEnterpriseService;
 
     /**
      * 列表
